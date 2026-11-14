@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "properties": {
+      "lesson_id":       { "type": "integer" },
+      "course_code":     { "type": "keyword" },
+      "course_name":     { "type": "text",     "analyzer": "russian" },
+      "title":           { "type": "text",     "analyzer": "russian" },
+      "description":     { "type": "text",     "analyzer": "russian" },
+      "content_text":    { "type": "text",     "analyzer": "russian" },
+      "lesson_type":     { "type": "keyword" },
+      "tags":            { "type": "keyword" },
+      "specialty_codes": { "type": "keyword" },
+      "order_number":    { "type": "integer" },
+      "semester":        { "type": "integer" },
+      "prerequisite_codes":  { "type": "keyword" },
+      "continuation_codes":  { "type": "keyword" },
+      "related_codes":       { "type": "keyword" }
+    }
+  }
+}

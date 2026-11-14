@@ -1,0 +1,24 @@
+services:
+  gateway:
+    build: ./gateway
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      DEMO_USER: ${DEMO_USER:-student}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?Set DEMO_PASSWORD in .env}
+      LAB1_URL: http://lab1:8001
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Set INTERNAL_TOKEN in .env}
+    depends_on: [lab1]
+    networks: [default, db]
+  lab1:
+    build: ./lab1
+    environment:
+      PG_DSN: ${PG_DSN:-postgresql://admin:admin@practice01-postgres:5432/practice_db}
+      ES_URL: ${ES_URL:-http://practice01-elasticsearch:9200}
+      REDIS_URL: ${REDIS_URL:-redis://:mypassword@practice01-redis:6379/0}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Set INTERNAL_TOKEN in .env}
+    networks: [default, db]
+networks:
+  db:
+    external: true
+    name: ${DB_NETWORK:?Set DB_NETWORK in .env}
